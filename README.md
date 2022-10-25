@@ -1,15 +1,14 @@
+# [HeroPicker](https://github.com/yueqi-jiangxing/heroPicker)
+
+将星英雄选取随机算法
+
 #### 一、文件说明
 
-- heroPicker
-    - demo.go                       示例源程序文件
-    - hero.go                       选将SDK源文件
-    - heroes.txt                    将领编号文件
-    - readme.md                     操作说明文档
-    - LinuxDemo                     Linux环境下的执行文件
-    - MacDemo                       Mac Intel芯片环境下的执行文件
-	- MacM1Demo                     Mac M1芯片环境下的执行文件
-    - Windows10Demo.exe             Windows10环境下的执行文件
-	- Windows11Demo.exe             Windows10环境下的执行文件
+    heroPicker					        项目目录
+    |---- demo.go				        示例源程序文件
+    |---- hero.go						业务编写目录
+    |---- config.go						验证器目录
+    |---- README.md						常用函数文件
 
 #### 二、使用方法
 
@@ -20,25 +19,10 @@
 -s 1													//表示手动输入本期选将的起始序号
 ```
 
-+ 2.2 原生Golang环境下执行: 进入文件目录heroPicker下运行: 
++ 2.2 Golang环境下执行: 进入文件目录heroPicker下运行: 
 ```
-go run demo.go hero.go				//说明：如需带上相应的参数，则使用2.1中的对应参数及值
-```
-
-+ 2.3 Windows环境下系统版本7-10之间可以打开cmd，在cmd下进入文件目录heroPicker下运行:
-```
- WindowsDemo.exe						//说明：如需带上相应的参数，则使用2.1中的对应参数及值
-```
-
-+ 2.4 Mac环境下: 进入文件目录heroPicker下运行:
-```
- ./MacM1Demo									//说明：如需带上相应的参数，则使用2.1中的对应参数及值
- ./MacDemo										//说明：如需带上相应的参数，则使用2.1中的对应参数及值
-```
-
-+ 2.5 Linux环境下: 进入文件目录heroPicker下运行:
-```
- ./LinuxDemo								//说明：如需带上相应的参数，则使用2.1中的对应参数及值
+go run demo.go hero.go config.go				//说明：如需带上相应的参数，则使用2.1中的对应参数及值
+示例：go run demo.go hero.go config.go -i 2022120
 ```
 
 #### 三、武将发售规则说明
@@ -94,8 +78,3 @@ N10 = N9+T10
 	+ 3.4.1 在发售后期，当大部分将领都已经发售完毕，剩余未发售将领总数不超过10个时，则无需抽取，剩余所有将领都被选中。
 
 <br>
-<br>
-
-
-
-
