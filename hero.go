@@ -12,7 +12,7 @@ type Hero struct {
 
 type HeroesData struct {
 	Surplus int64 //将领剩余可用数量
-	Empty   int64 //轮空：0否,1是
+	IsEmpty int64 //轮空：0否,1是
 }
 
 /**
@@ -50,60 +50,58 @@ func (Hero) New(opt ...int64) *Hero {
 func (this *Hero) Choose(Heroes map[string]HeroesData, Numbers []string) map[string]int64 {
 	//具体规则
 	//1.构建双色球的编号及其位置A~G
-	Address := make(map[string]int64)
+	address := make(map[string]int64)
 	for index, val := range Numbers {
 		n := 65 + index
 		var r rune = rune(n)
 		value, _ := strconv.ParseInt(val, 10, 64)
-		Address[string(r)] = value
+		address[string(r)] = value
 	}
 	//2.构建抽奖参数T1~T10
-	Parameters := make(map[string]int64)
+	parameters := make(map[string]int64)
 	for i := int64(0); i < this.Selected; i++ {
 		n := 65 + i
 		field := "T" + strconv.FormatInt(i+1, 10)
 		if i < 6 {
-			Parameters[field] = Address[string(rune(n))] + Address[string(rune(71))]
+			parameters[field] = address[string(rune(n))] + address[string(rune(71))]
 		} else if i >= 6 && i < 9 {
 			k := 59 + i
 			var kv rune = rune(k)
 			j := 76 - i
 			var jv rune = rune(j)
-			Parameters[field] = Address[string(kv)] + Address[string(jv)]
+			parameters[field] = address[string(kv)] + address[string(jv)]
 		} else {
-			Parameters[field] = Address[string(rune(65))] + Address[string(rune(66))] + Address[string(rune(67))]
+			parameters[field] = address[string(rune(65))] + address[string(rune(66))] + address[string(rune(67))]
 		}
 	}
 	//3.构建将领序号N1~N10
-	SerialNumber := make(map[string]int64)
-	N := this.Number
-	//每轮的计数
-	S := N
+	serialNumber := make(map[string]int64)
+	start := this.Number
 	for i := int64(0); i < this.Selected; i++ {
 		index := strconv.FormatInt(i+1, 10)
-		for j := int64(0); j < Parameters["T"+index]; j++ {
-			S++
-			if S > this.Total {
-				S = 1
+		for j := int64(0); j < parameters["T"+index]; j++ {
+			start++
+			if start > this.Total {
+				start = 1
 				continue
 			}
-			jj := strconv.FormatInt(S, 10)
-			if Heroes[jj].Empty == 1 {
-				S++
+			jj := strconv.FormatInt(start, 10)
+			if Heroes[jj].IsEmpty == 1 {
+				start++
 			}
 		}
 		for {
-			if Heroes[strconv.FormatInt(S, 10)].Empty == 1 {
-				S++
+			if Heroes[strconv.FormatInt(start, 10)].IsEmpty == 1 {
+				start++
 			} else {
 				break
 			}
 		}
 		HeroesData := HeroesData{}
-		HeroesData.Surplus = Heroes[strconv.FormatInt(S, 10)].Surplus
-		HeroesData.Empty = 1
-		Heroes[strconv.FormatInt(S, 10)] = HeroesData
-		SerialNumber[index] = S
+		HeroesData.Surplus = Heroes[strconv.FormatInt(start, 10)].Surplus
+		HeroesData.IsEmpty = 1
+		Heroes[strconv.FormatInt(start, 10)] = HeroesData
+		serialNumber[index] = start
 	}
-	return SerialNumber
+	return serialNumber
 }
