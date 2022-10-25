@@ -1,4 +1,4 @@
-# <h1 align="center">[将星英雄选取随机算法](https://github.com/yueqi-jiangxing/heroPicker)</h1>
+# <h1 align="center">[武将选取算法](https://github.com/yueqi-jiangxing/heroPicker)</h1>
 
 #### 一、文件说明
 
