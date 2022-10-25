@@ -4,11 +4,11 @@
 
 #### 一、文件说明
 
-    heroPicker					        项目目录
-    |---- demo.go				        示例源程序文件
-    |---- hero.go						业务编写目录
-    |---- config.go						验证器目录
-    |---- README.md						常用函数文件
+    heroPicker                      项目目录
+    |---- demo.go                   示例源程序文件
+    |---- hero.go                   业务编写目录
+    |---- config.go                 验证器目录
+    |---- README.md                 常用函数文件
 
 #### 二、使用方法
 
