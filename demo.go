@@ -26,6 +26,7 @@ func init() {
 	flag.Int64Var(&begin, "s", 1, "")
 }
 
+//双色球数据返回值
 type SSQResult struct {
 	Result []struct {
 		Blue string `json:"blue"`
@@ -40,6 +41,7 @@ func main() {
 			fmt.Println("请输入期号或开奖号码")
 			return
 		} else {
+			//未指定开奖号码，但是指定了开奖期号，则通过双色球福彩官网获取该期的开奖号码
 			client := http.Client{Timeout: 3 * time.Second}
 			url := "http://www.cwl.gov.cn/cwl_admin/front/cwlkj/search/kjxx/findDrawNotice?name=ssq&issueCount=&dayStart=&dayEnd="
 			url = url + "&issueStart=" + issue + "&issueEnd=" + issue
@@ -70,10 +72,12 @@ func main() {
 				fmt.Println(err.Error())
 				return
 			}
+			//组装开奖号码
 			number = SSQResult.Result[0].Red + "," + SSQResult.Result[0].Blue
 		}
 	}
 	numbers := strings.Split(number, ",")
+	//组装英雄基础数据，该数据实际应根据具体业务指标中获取，此处仅作示例
 	heroes := make(map[string]HeroesData)
 	for i := 1; i <= 50; i++ {
 		D := HeroesData{}
@@ -81,9 +85,11 @@ func main() {
 		D.IsEmpty = 0
 		heroes[strconv.Itoa(i)] = D
 	}
+	//调用选将核心算法
 	instances := Hero{}.New(begin)
 	data := instances.Choose(heroes, numbers)
 	HeroesList := GetHeroesData()
+	//打印出选将后的结果
 	for i := 1; i < 11; i++ {
 		fmt.Printf("N%d:【%d - %s】%s", i, data[strconv.Itoa(i)], HeroesList[strconv.FormatInt(data[strconv.Itoa(i)], 10)], "\n")
 	}

@@ -1,14 +1,12 @@
-# <h1 align="center">[heroPicker](https://github.com/yueqi-jiangxing/heroPicker)</h1>
-
-将星英雄选取随机算法
+# <h1 align="center">[将星英雄选取随机算法](https://github.com/yueqi-jiangxing/heroPicker)</h1>
 
 #### 一、文件说明
 
     heroPicker                      项目目录
     |---- demo.go                   示例源程序文件
-    |---- hero.go                   业务编写目录
-    |---- config.go                 验证器目录
-    |---- README.md                 常用函数文件
+    |---- hero.go                   英雄选取算法核心文件
+    |---- config.go                 英雄数据列表
+    |---- README.md                 说明文档
 
 #### 二、使用方法
 
